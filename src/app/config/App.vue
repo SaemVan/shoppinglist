@@ -1,37 +1,25 @@
 <template>
-  <div class="app-container">
-    <AddItemForm 
-      :items="items"
-      @add-item="addItem"
-      @toggle-delete="toggleDeleteItem"
-    />
-    <DeletedItems 
-      :items="items"
-    />
-  </div>
+  <router-view 
+    :items="items"
+    @add-item="addItem"
+    @delete-item="deleteItem"
+  ></router-view>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import AddItemForm from '../components/AddItemForm.vue'
-import DeletedItems from '../components/DeletedItems.vue'
 
-const items = ref([])
+const items = ref([{ text: 'Item 1', deleted: false }, { text: 'Item 2', deleted: false }])
 
 const addItem = (newItem) => {
-  items.value.push(newItem)
+  items.value.push({ text: newItem, deleted: false })
 }
 
-const toggleDeleteItem = (index) => {
+const deleteItem = (index) => {
   items.value[index].deleted = !items.value[index].deleted
 }
 </script>
 
 <style scoped>
-.app-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  gap: 2rem;
-}
+
 </style>
